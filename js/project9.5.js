@@ -6,7 +6,6 @@ class Enemy {
         this.frameInterval = 1000 / this.fps;
         this.frameTimer = 0;
         this.markedForDeletion = false;
-        
     }
     update(deltaTime) {
         this.x -= this.speedX + this.game.speed;
@@ -19,10 +18,10 @@ class Enemy {
             this.frameTimer += deltaTime;
         }
 
-        if(this.x + this.width < 0) this.markedForDeletion = true;
+        if (this.x + this.width < 0) this.markedForDeletion = true;
     }
     draw(context) {
-        if(this.game.debug) context.strokeRect(this.x, this.y, this.width, this.height);
+        if (this.game.debug) context.strokeRect(this.x, this.y, this.width, this.height);
         context.drawImage(this.image, this.frameX * this.width, 0, this.width, this.height, this.x, this.y, this.width, this.height);
     }
 }
@@ -41,14 +40,12 @@ export class FlyingEnemy extends Enemy {
         this.image = document.getElementById('enemy_fly');
         this.angle = 0;
         this.va = Math.random() * 0.1 + 0.1;
-
     }
     update(deltaTime) {
         super.update(deltaTime);
         this.angle += this.va;
         this.y += Math.sin(this.angle);
     }
-   
 }
 
 export class GroundEnemy extends Enemy {
@@ -63,7 +60,7 @@ export class GroundEnemy extends Enemy {
         this.speedX = 0;
         this.speedY = 0;
         this.maxFrame = 1;
-    }    
+    }
 }
 
 export class ClimbingEnemy extends Enemy {
@@ -81,8 +78,8 @@ export class ClimbingEnemy extends Enemy {
     }
     update(deltaTime) {
         super.update(deltaTime);
-        if(this.y > this.game.height - this.height - this.game.groundMargin) this.speedY *= -1;
-        if(this.y < -this.height) this.markedForDeletion = true;
+        if (this.y > this.game.height - this.height - this.game.groundMargin) this.speedY *= -1;
+        if (this.y < -this.height) this.markedForDeletion = true;
     }
     draw(context) {
         super.draw(context);
@@ -91,5 +88,4 @@ export class ClimbingEnemy extends Enemy {
         context.lineTo(this.x + this.width / 2, this.y + 50);
         context.stroke();
     }
-
 }
